@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Defunct Projects — Fisher Armstrong</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Raw half-formed ideas, and the ones that did NOT work out.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #161616;
+  --paper: #f4f1ea;
+  --muted: #5c5c5c;
+  --border-soft: rgba(0,0,0,0.08);
+
+  --dead:      #b03030;
+  --stalled:   #b07800;
+  --fragment:  #5c5c5c;
+
+  --dark: #1c1c22;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px),
+    var(--paper);
+  background-size: 32px 32px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+h1, h2, h3 { margin: 0; }
+a { text-decoration: none; color: inherit; }
+
+/* ── VERSION TAG ── */
+.version {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  background: var(--dark);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  z-index: 100;
+}
+
+/* ── HERO / PAGE HEADER ── */
+.hero {
+  padding: 48px 28px 36px;
+  border-bottom: 1px solid rgba(0,0,0,0.10);
+  background: var(--dark);
+  color: #f0f0f0;
+  position: relative;
+}
+
+.breadcrumb {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.03em;
+}
+
+.breadcrumb a {
+  color: rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.breadcrumb a:hover { color: #fff; border-color: #fff; }
+
+.hero h1 {
+  font-size: 2.2rem;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.hero-sub {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+  max-width: 540px;
+}
+
+/* ── MAIN LAYOUT ── */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 28px 90px;
+}
+
+section { margin-bottom: 3.5rem; }
+
+/* ── SECTION HEADERS ── */
+.section-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(0,0,0,0.12);
+}
+
+/* ── PROJECT CARDS ── */
+.card {
+  border-left: 4px solid;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin-bottom: 1.5rem;
+  transition: transform 0.15s ease;
+}
+
+.card:hover { transform: translateX(5px); }
+
+.card.dead {
+  border-color: var(--dead);
+  background: rgba(176,48,48,0.055);
+}
+
+.card.stalled {
+  border-color: var(--stalled);
+  background: rgba(176,120,0,0.055);
+}
+
+.card.fragment {
+  border-color: rgba(92,92,92,0.35);
+  background: rgba(92,92,92,0.04);
+  opacity: 0.82;
+}
+
+/* ── CARD HEADER ── */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.status-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.tag-dead     { background: rgba(176,48,48,0.12);  color: #8a1c1c; }
+.tag-stalled  { background: rgba(176,120,0,0.13);  color: #7a5500; }
+.tag-fragment { background: rgba(92,92,92,0.12);   color: #444; }
+
+.card-meta {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.70rem;
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.4rem;
+}
+
+.card-desc {
+  font-size: 0.92rem;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  max-width: 620px;
+}
+
+/* ── POST-MORTEM ── */
+.postmortem {
+  border-top: 1px solid rgba(0,0,0,0.09);
+  padding-top: 0.9rem;
+}
+
+.pm-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.pm-body {
+  font-size: 0.88rem;
+  color: var(--muted);
+  max-width: 620px;
+  margin-bottom: 0.8rem;
+}
+
+.pm-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pm-list li {
+  font-size: 0.83rem;
+  color: var(--muted);
+  padding: 0.15rem 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.pm-list li::before {
+  content: "—";
+  color: rgba(0,0,0,0.20);
+  flex-shrink: 0;
+}
+
+/* ── FRAGMENT CARDS (minimal) ── */
+.frag-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+  margin-bottom: 0.25rem;
+}
+
+.frag-note {
+  font-size: 0.86rem;
+  color: var(--muted);
+  max-width: 600px;
+  font-style: italic;
+}
+
+/* ── CLOSING NOTE ── */
+.closing {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 2rem;
+  line-height: 1.7;
+}
+
+.closing a {
+  color: var(--muted);
+  border-bottom: 1px solid rgba(0,0,0,0.18);
+}
+.closing a:hover { color: var(--ink); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 44px 20px;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.7rem; }
+  main { padding: 40px 18px 60px; }
+  .card-meta { flex-direction: column; gap: 0.1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="version">build 11.4.6</div>
+
+<header class="hero">
+  <div class="breadcrumb">
+    <a href="https://fisherarmstrong.netlify.app">fisherarmstrong</a> / defunct
+  </div>
+  <h1>Defunct Projects</h1>
+  <p class="hero-sub">Raw half-formed ideas, and the ones that did <em>NOT</em> work out. No spin.</p>
+</header>
+
+<main>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- KILLED -->
+  <!-- ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">Killed</div>
+
+    <div class="card dead">
+      <div class="card-header">
+        <span class="card-name">DebateDaily</span>
+        <span class="status-tag tag-dead">Dead</span>
+      </div>
+      <div class="card-meta">
+        <span>Domain: Web App / Civic Tech</span>
+        <span>Stack: HTML · CSS · JS</span>
+        <span>Window: 2023 – 2024</span>
+      </div>
+      <div class="card-desc">
+        Daily structured debate prompts — one topic, two sides, timed rounds. Built to keep formal argumentation sharp outside a school context. The friction of finding a partner and a topic was real; the intent was to remove it.
+      </div>
+      <div class="postmortem">
+        <div class="pm-label">Post-Mortem</div>
+        <p class="pm-body">
+          The core problem was retention without stakes. Structured debate only works when both parties are invested — solo drill tools don't replicate that. Built the UI, got the prompt engine running, used it about four times personally. Every session felt like shadowboxing in an empty gym. Competing priorities at school finished it off. The idea isn't wrong; the execution context was.
+        </p>
+        <ul class="pm-list">
+          <li>Prompt engine and timer worked correctly</li>
+          <li>Solo use case never justified the overhead</li>
+          <li>No traction, no iteration loop, no reason to continue</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card dead">
+      <div class="card-header">
+        <span class="card-name">Appalachian Manufacturing Co.</span>
+        <span class="status-tag tag-dead">Dead</span>
+      </div>
+      <div class="card-meta">
+        <span>Domain: Physical Product / Fabrication</span>
+        <span>Stack: Ender 3 · Cameo 2 · Inkscape · Manual Fab</span>
+        <span>Window: 2022 – 2024</span>
+      </div>
+      <div class="card-desc">
+        Small-batch goods out of the NC High Country — 3D printed parts, vinyl-cut stickers, small custom hardware runs. "Appalachian" was doing real work in the branding: things made here, by hand, in the mountains, not drop-shipped.
+      </div>
+      <div class="postmortem">
+        <div class="pm-label">Post-Mortem</div>
+        <p class="pm-body">
+          Didn't survive contact with the unit economics. Small-batch physical goods have real COGs: filament, vinyl stock, time, packaging, shipping. Margins on anything priced to actually sell are thin enough that the throughput required is incompatible with a one-person shop that has three other things going on. The fabrication capability still exists — it feeds directly into Activism Motorsports and personal projects — but as a standalone revenue operation, it didn't work. FishStix Creatives absorbed the vinyl/sticker portion; the rest quietly dissolved.
+        </p>
+        <ul class="pm-list">
+          <li>Product quality was fine — economics weren't</li>
+          <li>Throughput requirements incompatible with current capacity</li>
+          <li>Sticker / vinyl work spun off into FishStix Creatives</li>
+          <li>Fabrication capability preserved and redirected, not lost</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card dead">
+      <div class="card-header">
+        <span class="card-name">FishSTIX Creatives</span>
+        <span class="status-tag tag-dead">Dead</span>
+      </div>
+      <div class="card-meta">
+        <span>Domain: Design / Print / Vinyl</span>
+        <span>Stack: Cameo 2 · Inkscape · Silhouette Studio</span>
+        <span>Window: 2024 – 2025</span>
+      </div>
+      <div class="card-desc">
+        Stickers, graphics, and assorted small-batch visual experiments. Spun out of Appalachian Manufacturing Co. to give the vinyl and print work its own identity. The idea was to keep the creative output separate from the fabrication side and build a small catalog of original designs.
+      </div>
+      <div class="postmortem">
+        <div class="pm-label">Post-Mortem</div>
+        <p class="pm-body">
+          Inherited the same structural problem as its parent: the economics of small-batch physical goods don't work at low volume. A sticker shop needs either a large catalog with consistent demand or a connected audience to sell into — FishSTIX had neither in sufficient quantity. The design capability lives on inside Activism Motorsports and personal projects. The storefront does not.
+        </p>
+        <ul class="pm-list">
+          <li>Design work and toolchain preserved — still in active use elsewhere</li>
+          <li>Storefront economics never closed</li>
+          <li>Absorbed back into the broader fabrication context</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- STALLED -->
+  <!-- ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">Stalled</div>
+
+    <div class="card stalled">
+      <div class="card-header">
+        <span class="card-name">N.O.V.A. — FWD Platform Build</span>
+        <span class="status-tag tag-stalled">No Active Build</span>
+      </div>
+      <div class="card-meta">
+        <span>Domain: Motorsports / Fabrication</span>
+        <span>Stack: Teensy 4.1 · M9N GPS · LSM6DSO32 · MCP2515 CAN</span>
+        <span>Window: 2023 – Present</span>
+      </div>
+      <div class="card-desc">
+        Clean-sheet FWD competition build for autocross and hillclimb under Activism Motorsports. The data logger platform is real and functional. The vehicle build is not — it lives in research while the RX-8 and Miata serve as active competition platforms. Listed here because "early-stage research with no car" is the honest status.
+      </div>
+      <div class="postmortem">
+        <div class="pm-label">Current Status</div>
+        <p class="pm-body">
+          Not dead — genuinely stalled on resources and sequencing. The telemetry stack gets real testing on the existing fleet first, which is the correct order of operations. Comes off this list when there's a chassis to put it in.
+        </p>
+      </div>
+    </div>
+
+    <div class="card stalled">
+      <div class="card-header">
+        <span class="card-name">DPAC — Public Web Tool</span>
+        <span class="status-tag tag-stalled">Waiting on Research</span>
+      </div>
+      <div class="card-meta">
+        <span>Domain: Web App / Motorsports</span>
+        <span>Stack: HTML · CSS · JS</span>
+        <span>Window: 2024 – Present</span>
+      </div>
+      <div class="card-desc">
+        Drivetrain-Aware Performance Analytics Calculator — a normalization tool for autocross and hillclimb that accounts for drivetrain config, tire classification, elevation, and power-to-weight. Not an official classing tool; an honest attempt to make lap time comparisons more meaningful than PAX alone.
+      </div>
+      <div class="postmortem">
+        <div class="pm-label">Blocker</div>
+        <p class="pm-body">
+          The calculator exists and works. A polished public-facing interface does not. The PAX critique writeup and the elevation weighting model are both still in progress — the public tool is waiting on the research being stable enough to stand behind. Keeps getting deprioritized behind active competition season work.
+        </p>
+        <ul class="pm-list">
+          <li>Core normalization formula: functional</li>
+          <li>FWD/RWD delta coefficients need more event data</li>
+          <li>PAX critique writeup in progress</li>
+          <li>Public release blocked on research stability</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card stalled">
+      <div class="card-header">
+        <span class="card-name">AHS — Full Scoring &amp; Results Platform</span>
+        <span class="status-tag tag-stalled">Scoped, Not Built</span>
+      </div>
+      <div class="card-meta">
+        <span>Domain: Web App / Motorsports</span>
+        <span>Stack: FishTankTech (TBD)</span>
+        <span>Window: 2024 – Present</span>
+      </div>
+      <div class="card-desc">
+        Appalachian Hillclimb Series runs on enthusiasm and spreadsheets. A proper results platform with real-time scoring, class breakdowns, and a historical record has been scoped out. FishTankTech is the obvious home for it. Finding the time is the problem.
+      </div>
+      <div class="postmortem">
+        <div class="pm-label">Blocker</div>
+        <p class="pm-body">
+          Consistently deprioritized behind active competition season work. The spreadsheet solution works well enough that the urgency never quite tips over into action. Will get built eventually.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- FRAGMENTS -->
+  <!-- ═══════════════════════════════════ -->
+  <section>
+    <div class="section-label">Fragments — Never Shipped</div>
+
+    <div class="card fragment">
+      <div class="card-header">
+        <span class="frag-name">Bob &amp;&amp; Robert — Live Archive</span>
+        <span class="status-tag tag-fragment">Content First</span>
+      </div>
+      <p class="frag-note">The Cremean and De Lavergne virtual estate has a site placeholder and a clear vision. Building a proper digital archive is contingent on the physical materials being organized first. The domain exists. The content does not, yet.</p>
+    </div>
+
+    <div class="card fragment">
+      <div class="card-header">
+        <span class="frag-name">Homelab Dashboard — Ronnie</span>
+        <span class="status-tag tag-fragment">Started Twice</span>
+      </div>
+      <p class="frag-note">A plain HTML dashboard over the Docker stack — no Homarr, no Heimdall, just a single well-built static page with links and status. Started twice; both times interrupted by something more on fire. Still on the list.</p>
+    </div>
+  </section>
+
+  <p class="closing">
+    "Nothing Is Ever Finished — Only Abandoned." The stuff on this page proved the quote.<br>
+    Things that are alive live at <a href="https://fisherarmstrong.netlify.app/now">/now</a>.
+  </p>
+
+</main>
+
+<footer>
+  © 2026 Fisher Armstrong<br>
+  Built &amp; Maintained by @FishTankTech
+</footer>
+
+</body>
+</html>
