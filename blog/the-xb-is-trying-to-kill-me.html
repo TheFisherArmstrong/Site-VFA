@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The xB Is Trying To Kill Me — Fisher Armstrong</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Two separate problems on the 2008 Scion xB: a third-gear transmission failure and a post-alignment VSC nightmare courtesy of Mavis Tire in Winston-Salem.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:    #161616;
+  --paper:  #f4f1ea;
+  --muted:  #5c5c5c;
+  --muted-2:#8a8a8a;
+  --rule:   rgba(0,0,0,0.1);
+  --tech:   #2f6fb2;
+  --motor:  #c9a800;
+  --warn:   #b85c1a;
+  --dark:   #1c1c22;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px),
+    var(--paper);
+  background-size: 32px 32px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+a { text-decoration: none; color: inherit; }
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+
+.version {
+  position: fixed;
+  top: 14px; right: 14px;
+  background: var(--dark);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  z-index: 100;
+}
+
+.post-header {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 60px 28px 0;
+}
+
+.breadcrumb {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 2rem;
+}
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb span { margin: 0 6px; opacity: 0.4; }
+
+.post-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--motor);
+  margin-bottom: 1rem;
+}
+
+.post-header h1 {
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  max-width: 580px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  color: var(--muted-2);
+  letter-spacing: 0.05em;
+  margin-bottom: 2.5rem;
+}
+
+.post-meta-dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--muted-2);
+  flex-shrink: 0;
+}
+
+.post-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  padding: 3px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.06);
+  color: var(--muted);
+}
+
+.header-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.post-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 28px 100px;
+}
+
+.post-body p {
+  font-size: 1rem;
+  line-height: 1.78;
+  margin-bottom: 1.4rem;
+  color: var(--ink);
+}
+
+.post-body h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 2.8rem 0 0.9rem;
+  line-height: 1.3;
+}
+
+.post-body h3 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 2rem 0 0.7rem;
+}
+
+.callout {
+  border-left: 3px solid;
+  padding: 14px 18px;
+  border-radius: 0 6px 6px 0;
+  margin: 1.8rem 0;
+}
+
+.callout p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.callout.warn  { border-color: var(--warn); background: rgba(184,92,26,0.07); }
+.callout.info  { border-color: var(--tech); background: rgba(47,111,178,0.07); }
+.callout.note  { border-color: var(--motor); background: rgba(201,168,0,0.07); }
+
+.callout-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.callout.warn .callout-label { color: var(--warn); }
+.callout.info .callout-label { color: var(--tech); }
+.callout.note .callout-label { color: #8a7300; }
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.6rem 0;
+  font-size: 0.875rem;
+}
+
+.spec-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.spec-table td:first-child {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+  width: 40%;
+}
+
+.spec-table tr:last-child td { border-bottom: none; }
+
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.82rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+</style>
+</head>
+<body>
+
+<div class="version">build 11.4.6</div>
+
+<div class="post-header">
+  <p class="breadcrumb">
+    <a href="../index.html">fisherarmstrong</a><span>/</span>
+    <a href="blog.html">blog</a><span>/</span>
+    the-xb-is-trying-to-kill-me
+  </p>
+  <p class="post-eyebrow">Wrenching</p>
+  <h1>The xB Is Trying To Kill Me</h1>
+  <div class="post-meta">
+    <span>June 12, 2026</span>
+    <span class="post-meta-dot"></span>
+    <span>Fisher Armstrong</span>
+    <span class="post-meta-dot"></span>
+    <span>~9 min read</span>
+  </div>
+  <div class="post-tags">
+    <span class="tag">Scion xB</span>
+    <span class="tag">Transmission</span>
+    <span class="tag">Aisin C56</span>
+    <span class="tag">VSC</span>
+    <span class="tag">SAS</span>
+    <span class="tag">Mavis Tire</span>
+  </div>
+</div>
+<hr class="header-rule" style="max-width:680px;margin:0 auto;">
+
+<div class="post-body">
+
+  <p>I'm writing this from Winston-Salem, three hours from my shop, in a car with a check engine light, a VSC light, a traction control light, and a transmission that doesn't like third gear. The xB is supposed to be the appliance. It's a beige refrigerator on wheels. It starts every morning, hauls camera gear, gets decent fuel economy, and generally stays out of my way.
+
+Instead, I'm sitting in Winston-Salem, three hours from my shop, staring at a dashboard lit up like a Christmas tree while the transmission pretends third gear is a suggestion.</p>
+
+  <p>There are two separate problems happening simultaneously, and only one of them is the car's fault.</p>
+
+  <h2>Problem One: Third Gear Is Done</h2>
+
+  <p>This one started quietly. A growing reluctance on the third gear shift — nothing dramatic, just a feeling that wasn't right. You check your technique first, then your clutch timing, then you eventually accept that the box is actually failing. By the time I pulled it, third gear was a full miss. Engagement was gone.</p>
+
+  <h3>The Gearbox</h3>
+
+  <p>The 2008 xB base runs an Aisin C56 or C59 — closely related five-speed units used across a wide range of Toyota FWD applications. Solid boxes generally. They don't usually fail like this without a reason, and I don't have a clear story for why this one did yet. What I do have is a clear picture of what failed.</p>
+
+  <table class="spec-table">
+    <tr><td>Transmission</td><td>Aisin C56 / C59 (5-speed manual)</td></tr>
+    <tr><td>Application</td><td>2008 Scion xB (base)</td></tr>
+    <tr><td>Failure mode</td><td>Third gear — grind, then no engagement</td></tr>
+    <tr><td>Confirmed damage</td><td>Shift fork wear + third gear synchronizer</td></tr>
+    <tr><td>Parts source</td><td>2001 Toyota Celica GT donor (C56)</td></tr>
+  </table>
+
+  <p>After teardown: the third gear shift fork has worn enough that it's not pushing the synchronizer sleeve into full engagement before the dog teeth try to mesh. The synchro shows exactly the damage you'd expect — the brass is torn up on the third gear side. These two fail together in this scenario because a worn fork makes the synchro take abuse it isn't designed for. One causes the other.</p>
+
+  <div class="callout info">
+    <div class="callout-label">How a Synchro Works</div>
+    <p>Before the dog teeth engage and lock the gear mechanically, the synchronizer ring uses friction to spin the target gear up to match shaft speed. If the fork isn't pushing the sleeve far enough, the synchro doesn't get full contact time, speeds don't match, and the dogs try to engage with a differential — that's the grind. Over time this destroys the brass ring entirely. Once it's gone, engagement is impossible without a perfect rev-match, and eventually even that fails.</p>
+  </div>
+
+  <h3>The Fix</h3>
+
+  <p>New OEM Aisin internals for a C56 at this age are not easy to source, and aftermarket quality is a gamble. The cleaner path is a known-good donor from the same family. The 2001 Celica GT runs a C56 that shares the relevant internals — shift fork geometry and synchronizer design are compatible for this repair. Donor located, parts compatibility confirmed, box is fully torn down and waiting. This one is just blocked on parts arriving and then it goes back together.</p>
+
+  <div class="callout note">
+    <div class="callout-label">C56 vs C59 — Donor Compatibility</div>
+    <p>The C56 and C59 differ mainly in final drive ratio and some case dimensions. Internal shift components and synchronizer assemblies are compatible for this repair. If you're doing the same job, verify your specific gear set before ordering — but the Celica GT is a well-documented donor for this exact failure on first-gen xB and early Corolla applications.</p>
+  </div>
+
+  <h2>Problem Two: The Mavis Tire Special</h2>
+
+  <p>This is the one that has me sitting in Winston-Salem hunting for tools instead of doing what I came here to do.</p>
+
+  <p>The xB went to Mavis Tire in Winston-Salem for what should have been the least interesting service appointment imaginable: a four-wheel alignment.
+
+An alignment is not supposed to become a character-building exercise.
+
+You drop the car off. They point the wheels in the same direction. You pay them. You leave. When I picked it up and got to about 40mph on the way home, the VSC light and traction control light came on at the same time. Neither would clear with their dash buttons, which they normally do when you disable them manually. Then in second gear: a hard fuel cut. Full power gone, intermittently, clearing only after a full ignition cycle. Check engine light on top of it.</p>
+
+  <p>That combination — speed-specific, simultaneous warning lights that won't reset, a load-dependent fuel cut — is not random. And the timing makes the cause obvious.</p>
+
+  <div class="callout warn">
+    <div class="callout-label">What I Found When I Got Home</div>
+    <p>When I finally got underneath the car, I found loose lug nuts and suspension hardware that should have been torqued before the keys were ever handed back to me.
+
+I wish I was exaggerating.
+
+Loose control arm bolts aren't an inconvenience. They're not "we forgot to top off the washer fluid." They're the sort of thing you discover after asking yourself why the car suddenly feels possessed on the highway.
+
+Mavis went further than a standard alignment required and didn't torque anything back down when they were done. On a platform where VSC depends entirely on wheel speed sensor data, loose suspension hardware isn't just a safety issue — it corrupts the inputs the car uses to make decisions.</p>
+  </div>
+
+  <h3>The VSC and Traction Control Lights</h3>
+
+  <p>VSC on this platform uses wheel speed sensors to detect yaw and slip. The sensors sit in the hub assembly reading a tone ring. When control arm hardware is loose, the geometry shifts under load. At a consistent speed — here, exactly 40mph — the resulting movement is enough to produce a signal the VSC module reads as a fault. Speed-specific because it takes a certain load and vibration frequency to surface it. The buttons won't override it because the module set a hard fault code, not a momentary trigger. It saw something it couldn't dismiss.</p>
+
+  <p>Right now, my money is on the Steering Angle Sensor.
+
+That's not a diagnosis yet. It's an educated suspicion.
+
+The timing fits. The symptoms fit. The fact that my scanner can't even talk to that particular fault fits.
+
+But until Modern Toyota hooks it up to the proper Toyota tooling tomorrow morning, it's still a theory. The SAS is calibrated to a specific straight-ahead position during alignment. If Mavis recalibrated it incorrectly, or if the loose hardware shifted things enough to put the sensor out of its expected range, the VSC module loses confidence in the steering angle data it needs to function. That's the kind of fault that trips both VSC and traction control simultaneously and refuses to clear with a button press — it's not a momentary event, it's a calibration disagreement.</p>
+
+  <div class="callout info">
+    <div class="callout-label">Why the SAS Matters for VSC</div>
+    <p>The Steering Angle Sensor tells the VSC system where the front wheels are pointed. VSC uses that — combined with wheel speed data and yaw rate — to determine whether the car is going where the driver intends. If the SAS is miscalibrated or out of range, the system can't make that comparison correctly and faults out. A standard OBD2 scanner can't read or reset SAS calibration codes on most Toyota platforms — it requires manufacturer-level tooling.</p>
+  </div>
+
+  <h3>The Fuel Cut</h3>
+
+  <p>The intermittent second-gear fuel cut is almost certainly downstream of the same problem. A hard fuel cut that clears on restart and is load-dependent points at the ECU tripping a protection mode based on bad sensor data. Second gear puts a specific torque load through the drivetrain at a specific RPM band — if the VSC system is already faulted and something in the sensor inputs looks wrong under that load, the ECU cuts fuel as a protection response. It's not a separate failure. It's the same one expressing itself differently under different conditions.</p>
+
+  <h3>The Tool Run</h3>
+
+  <p>Here's the part nobody tells you about being three hours from home in a car that's been messed with: you still have to deal with it right now, with whatever you can find. The loose hardware needed to be torqued before I drove it anywhere else, which meant finding the right torque adapter and a ratchet that would actually work — in Winston-Salem, with whatever was available, at a price that wasn't going to make things worse. That meant a tour of hardware stores and tool stores trying to piece together a solution from what was on the shelf. Nothing makes you appreciate your own toolbox quite like not having it. Got it sorted, got the hardware torqued, confirmed nothing was about to fall off. The VSC situation is still outstanding.</p>
+
+  <h3>Tomorrow: Modern Toyota</h3>
+
+  <p>I've got an appointment at Modern Toyota in the morning. The SAS calibration code is beyond what my OBD2 scanner can touch — this is one of those cases where you need dealer-level tooling to even read it, let alone reset it. If the SAS is the root cause and a proper recalibration clears it, this whole saga ends there. If it doesn't clear after calibration, then there's more digging to do. Either way, I'll know more tomorrow.</p>
+
+  <p>Mavis and I are also going to have a conversation, because "the customer found loose control arm bolts at highway speed" is not a sentence that should exist.</p>
+
+<p>The reality is that I'm lucky.</p>
+
+<p>I'm frustrated, and I'm disappointed, but I also recognize that this situation could have gone very differently. I have enough technical knowledge to know when something doesn't feel right. I know what suspension components are supposed to do, what they aren't supposed to do, and how to get underneath a car and verify that a repair was actually completed correctly.</p>
+
+<p>I also have the tools to deal with it. And if I don't already own the right tool, I'm fortunate enough to be in a position where I can usually go buy it. Even if that means spending an afternoon driving around Winston-Salem, standing in hardware stores and tool aisles trying to piece together a solution from whatever happens to be on the shelf.</p>
+
+<p>But that isn't true for everyone.</p>
+
+<p>Most people would have done exactly what they were supposed to do: trust the professionals they paid to perform the work. They would have picked up their car, assumed everything had been tightened properly, and continued on with their day.</p>
+
+<p>Cars are complicated, and most people aren't mechanics. They shouldn't have to be.</p>
+
+<p>When someone hands over their keys for something as routine as an alignment, they're placing a tremendous amount of trust in the people working on that vehicle. The expectation isn't perfection. Mistakes happen. But suspension components that affect whether the car stays pointed where the driver intends to go need to be tightened correctly before the keys are handed back.</p>
+
+<p>That's not an extraordinary standard. It's the bare minimum.</p>
+
+<p>What disappoints me most is that this story is inconvenient and expensive for me, but manageable. For someone else, someone without the same experience, resources, or stubbornness, it might not have been. They would have trusted that the job had been done correctly, because that's exactly what any reasonable person should be able to do.</p>
+
+<p>I'm not interested in making a scene. I don't expect perfection from anyone. But I do think it's worth having the conversation, because the next customer might not be the guy rebuilding his own transmission in a borrowed parking lot with an increasingly expensive collection of receipts from local tool stores.</p>
+
+  <h2>Where Things Stand</h2>
+
+  <p>Two problems, one car, both currently unresolved. The transmission rebuild is a clean mechanical job waiting on parts — no surprises left there. The Mavis situation is messier because it's happening away from home, requires dealer tooling to close out, and was entirely avoidable. The xB will be fine eventually. Right now it's just a lot.</p>
+
+  <p>I'll post an update after the Modern Toyota appointment tomorrow. If the SAS calibration fixes it, great. If not, that'll be its own entry.</p>
+
+<p>Eventually, this car will go back to being what it was supposed to be: the boring one.</p>
+
+<p>Right now, though, I'm rebuilding a transmission with parts from a Celica, chasing a possible SAS fault I can't clear myself, and hoping tomorrow's appointment at Modern Toyota ends with fewer warning lights than I started with.</p>
+
+<p>Owning old cars builds character.</p>
+
+<p>I'd like to stop building character for a little while.</p>
+
+</div>
+
+<footer>
+  © 2026 Fisher Armstrong <br>
+  Built &amp; Maintained by @FishTankTech
+</footer>
+
+</body>
+</html>
