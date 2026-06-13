@@ -293,11 +293,91 @@ aside h2 {
   text-transform: uppercase;
 }
  
-.tag-amber { background: rgba(201,168,0,0.15); color: #8a7300; }
-.tag-green { background: rgba(107,191,89,0.15); color: #2e6a1f; }
-.tag-blue  { background: rgba(47,111,178,0.15); color: #1d4f86; }
-.tag-gray  { background: rgba(109,108,112,0.15); color: #444; }
+.tag-amber  { background: rgba(201,168,0,0.15); color: #8a7300; }
+.tag-green  { background: rgba(107,191,89,0.15); color: #2e6a1f; }
+.tag-blue   { background: rgba(47,111,178,0.15); color: #1d4f86; }
+.tag-gray   { background: rgba(109,108,112,0.15); color: #444; }
+.tag-purple { background: rgba(120,80,180,0.15); color: #5a2d9a; }
  
+/* SPONSOR SECTION */
+.sponsor-bar {
+  border-top: 2px solid rgba(0,0,0,0.06);
+  padding: 40px 28px 44px;
+}
+ 
+.sponsor-bar-inner {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+ 
+.sponsor-header {
+  font-family: "Inter", system-ui, sans-serif;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+ 
+.sponsor-header h2 {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #26262e;
+}
+ 
+.sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+ 
+@media (max-width: 800px) {
+  .sponsor-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 500px) {
+  .sponsor-grid { grid-template-columns: repeat(2, 1fr); }
+}
+ 
+.sponsor-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 22px 16px;
+  border-radius: 10px;
+  border: 1.5px dashed rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.03);
+  color: #161616;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  min-height: 100px;
+  text-decoration: none;
+}
+ 
+.sponsor-slot svg {
+  width: 22px;
+  height: 22px;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+ 
+.sponsor-slot:hover {
+  border-color: #5c5c5c;
+  background: rgba(92,92,92,0.08);
+  transform: translateY(-3px);
+}
+ 
+.sponsor-slot:hover svg {
+  opacity: 0.7;
+}
+
 /* FOOTER */
 footer {
   background: var(--dark);
@@ -310,18 +390,16 @@ footer {
 </head>
 <body>
  
-<div class="version">build 11.4.6</div>
+<div class="version">build V17.8.3</div>
  
 <header class="hero">
   <h1>Fisher Armstrong</h1>
-    <p>"Profesional" Do-er Of Things. 
-    <br> Nothing Is Ever Finished - Only Abandoned. 
+  <p>"Professional" Do-er Of Things.
+    <br> Nothing Is Ever Finished - Only Abandoned.
     <br><br>I Miss you, Dad. I Love you, Christina.</p>
  
-  
   <div class="hero-dashboard">
- 
- 
+
     <!-- Contact -->
     <div class="dashboard-group">
       <span class="group-label amber">Contact</span>
@@ -334,8 +412,7 @@ footer {
         </a>
       </div>
     </div>
- 
- 
+
     <!-- Support -->
     <div class="dashboard-group">
       <span class="group-label green">Support</span>
@@ -348,8 +425,7 @@ footer {
         </a>
       </div>
     </div>
- 
- 
+
     <!-- Work -->
     <div class="dashboard-group">
       <span class="group-label blue">Work</span>
@@ -374,66 +450,80 @@ footer {
     <li class="ahs">
       <div class="project-text">
         <a class="project" href="https://www.appalachianhillclimb.com">Appalachian Hillclimb Series</a>
-        <div class="desc">Spreading Our Love Of Burnouts With Appalachia!!!</div> </div>
-          <a class="project-email" href="mailto:AppalachianHillclimb@gmail.com" title="AHS Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg> </a> </li>
+        <div class="desc">Spreading Our Love Of Burnouts With Appalachia!!!</div>
+      </div>
+      <a class="project-email" href="mailto:AppalachianHillclimb@gmail.com" title="AHS Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg>
+      </a>
+    </li>
  
     <li class="motor">
       <div class="project-text">
         <a class="project" href="https://activismmotorsprts.netlify.app">ActivismMotorsports</a>
-        <div class="desc">Development, Fabrication, And Racing (occasionally good).</div> </div>
-          <a class="project-email" href="mailto:ActivismMotorsports@gmail.com" title="AM Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg> </a> </li>
+        <div class="desc">Development, Fabrication, And Racing (occasionally good).</div>
+      </div>
+      <a class="project-email" href="mailto:ActivismMotorsports@gmail.com" title="AM Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg>
+      </a>
+    </li>
     
     <li class="photo">
       <div class="project-text">
         <a class="project" href="https://activismphotography.netlify.app">ActivismPhotography</a>
-        <div class="desc">Documenting So As To Not Forget - Started With #828Strong</div> </div>
-          <a class="project-email" href="mailto:ActivismPhotography@gmail.com" title="AP Email">
-         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg> </a> </li>
+        <div class="desc">Documenting So As To Not Forget - Started With #828Strong</div>
+      </div>
+      <a class="project-email" href="mailto:ActivismPhotography@gmail.com" title="AP Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg>
+      </a>
+    </li>
     
     <li class="tech">
       <div class="project-text">
         <a class="project" href="https://fishtanktech.netlify.app">FishTankTech</a>
-        <div class="desc">"Durable" software. Systems that Feel Like A Good Idea In The Moment.</div> </div>
-          <a class="project-email" href="mailto:MyFishTankTech@gmail.com" title="FTT Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg> </a> </li>
+        <div class="desc">"Durable" software. Systems that Feel Like A Good Idea In The Moment.</div>
+      </div>
+      <a class="project-email" href="mailto:MyFishTankTech@gmail.com" title="FTT Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg>
+      </a>
+    </li>
     
     <li class="bob">
       <div class="project-text">
         <a class="project" href="https://bobandrobert.netlify.app">Bob && Robert</a>
-        <div class="desc">The Estate: Cremean, and De Lavergne - Concentrated.</div> </div>
-           <a class="project-email" href="mailto:TheCremeanArchives@gmail.com" title="BnR Email">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg> </a> </li>
+        <div class="desc">The Estate: Cremean, and De Lavergne - Concentrated.</div>
+      </div>
+      <a class="project-email" href="mailto:TheCremeanArchives@gmail.com" title="BnR Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 6l8 6 8-6"/></svg>
+      </a>
+    </li>
   
-      </ul>
+  </ul>
 </section>
  
 <aside>
-<h2>Internal System</h2>
-<div class="internal-grid">
-  <a class="internal-card" href="/beliefs.html">
-    <div class="card-top"><span class="card-title">Beliefs</span><span class="card-tag tag-purple">Core</span></div>
-    <div class="card-desc">Operating principles. Trade-offs I accept. Trade-offs I reject.</div>
-  </a>
-  <a class="internal-card" href="blog/blog.html">
-    <div class="card-top"><span class="card-title">Blog</span><span class="card-tag tag-purple">Live</span></div>
-    <div class="card-desc">The Ramblings Of A Clinicly Insane Talapia.</div>
-  </a>
-  <a class="internal-card" href="now.html">
-    <div class="card-top"><span class="card-title">Now</span><span class="card-tag tag-purple">Active</span></div>
-    <div class="card-desc">What I'm building or testing this month.</div>
-  </a>
-  <a class="internal-card" href="defunct.html">
-    <div class="card-top"><span class="card-title">Defuct Projects</span><span class="card-tag tag-purple">Raw</span></div>
-    <div class="card-desc">The ones that didnt make it out of Development.</div>
-  </a>
+  <h2>Internal System</h2>
   <div class="internal-grid">
-  <a class="internal-card" href="/stack.html">
-    <div class="card-top"><span class="card-title">My "Stack"</span><span class="card-tag tag-purple">External</span></div>
-    <div class="card-desc">What I use, and why it's overly complex.</div>
-  </a>
-</div>
+    <a class="internal-card" href="/beliefs.html">
+      <div class="card-top"><span class="card-title">Beliefs</span><span class="card-tag tag-purple">Core</span></div>
+      <div class="card-desc">Operating principles. Trade-offs I accept. Trade-offs I reject.</div>
+    </a>
+    <a class="internal-card" href="blog/blog.html">
+      <div class="card-top"><span class="card-title">Blog</span><span class="card-tag tag-purple">Live</span></div>
+      <div class="card-desc">The Ramblings Of A Clinicly Insane Talapia.</div>
+    </a>
+    <a class="internal-card" href="now.html">
+      <div class="card-top"><span class="card-title">Now</span><span class="card-tag tag-purple">Active</span></div>
+      <div class="card-desc">What I'm building or testing this month.</div>
+    </a>
+    <a class="internal-card" href="defunct.html">
+      <div class="card-top"><span class="card-title">Defunct Projects</span><span class="card-tag tag-purple">Raw</span></div>
+      <div class="card-desc">The ones that didn't make it out of Development.</div>
+    </a>
+    <a class="internal-card" href="/stack.html">
+      <div class="card-top"><span class="card-title">My "Stack"</span><span class="card-tag tag-purple">External</span></div>
+      <div class="card-desc">What I use, and why it's overly complex.</div>
+    </a>
+  </div>
 </aside>
 </main>
 
@@ -448,7 +538,7 @@ footer {
 
       <!-- Canon -->
       <a class="sponsor-slot" href="https://www.usa.canon.com" target="_blank" rel="noopener">
-      <img src="photos/CNlogo.png" alt="Canon" style="width: 60px; height: auto; opacity: 0.6;">
+        <img src="photos/CNlogo.png" alt="Canon" style="width: 60px; height: auto; opacity: 0.6;">
         Canon
       </a>
 
@@ -460,19 +550,19 @@ footer {
 
       <!-- Red Bull -->
       <a class="sponsor-slot" href="https://www.redbull.com" target="_blank" rel="noopener">
-      <img src="photos/RBlogo.png" alt="RedBull" style="width: 60px; height: auto; opacity: 0.6;">
+        <img src="photos/RBlogo.png" alt="RedBull" style="width: 60px; height: auto; opacity: 0.6;">
         Red Bull
       </a>
 
       <!-- GoPro -->
       <a class="sponsor-slot" href="https://gopro.com" target="_blank" rel="noopener">
-      <img src="photos/GPlogo.png" alt="GoPro" style="width: 60px; height: auto; opacity: 0.6;">
+        <img src="photos/GPlogo.png" alt="GoPro" style="width: 60px; height: auto; opacity: 0.6;">
         GoPro
       </a>
 
       <!-- Honda -->
       <a class="sponsor-slot" href="https://www.Honda.com" target="_blank" rel="noopener">
-      <img src="photos/HDAlogo.jpg" alt="Honda" style="width: 60px; height: auto; opacity: 0.6;">
+        <img src="photos/HDAlogo.jpg" alt="Honda" style="width: 60px; height: auto; opacity: 0.6;">
         Honda
       </a>
 
