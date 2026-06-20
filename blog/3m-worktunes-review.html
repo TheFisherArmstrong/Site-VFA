@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The xB Is Trying To Kill Me — Fisher Armstrong</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Two separate problems on the 2008 Scion xB: a third-gear transmission failure and a post-alignment VSC nightmare courtesy of Mavis Tire in Winston-Salem.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:    #161616;
+  --paper:  #f4f1ea;
+  --muted:  #5c5c5c;
+  --muted-2:#8a8a8a;
+  --rule:   rgba(0,0,0,0.1);
+  --tech:   #2f6fb2;
+  --motor:  #c9a800;
+  --warn:   #b85c1a;
+  --dark:   #1c1c22;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px),
+    var(--paper);
+  background-size: 32px 32px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+a { text-decoration: none; color: inherit; }
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+
+.version {
+  position: fixed;
+  top: 14px; right: 14px;
+  background: var(--dark);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  z-index: 100;
+}
+
+.post-header {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 60px 28px 0;
+}
+
+.breadcrumb {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 2rem;
+}
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--ink); }
+.breadcrumb span { margin: 0 6px; opacity: 0.4; }
+
+.post-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--motor);
+  margin-bottom: 1rem;
+}
+
+.post-header h1 {
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  max-width: 580px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  color: var(--muted-2);
+  letter-spacing: 0.05em;
+  margin-bottom: 2.5rem;
+}
+
+.post-meta-dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--muted-2);
+  flex-shrink: 0;
+}
+
+.post-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  padding: 3px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.06);
+  color: var(--muted);
+}
+
+.header-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.post-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 28px 100px;
+}
+
+.post-body p {
+  font-size: 1rem;
+  line-height: 1.78;
+  margin-bottom: 1.4rem;
+  color: var(--ink);
+}
+
+.post-body h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 2.8rem 0 0.9rem;
+  line-height: 1.3;
+}
+
+.post-body h3 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 2rem 0 0.7rem;
+}
+
+.callout {
+  border-left: 3px solid;
+  padding: 14px 18px;
+  border-radius: 0 6px 6px 0;
+  margin: 1.8rem 0;
+}
+
+.callout p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.callout.warn  { border-color: var(--warn); background: rgba(184,92,26,0.07); }
+.callout.info  { border-color: var(--tech); background: rgba(47,111,178,0.07); }
+.callout.note  { border-color: var(--motor); background: rgba(201,168,0,0.07); }
+
+.callout-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.callout.warn .callout-label { color: var(--warn); }
+.callout.info .callout-label { color: var(--tech); }
+.callout.note .callout-label { color: #8a7300; }
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.6rem 0;
+  font-size: 0.875rem;
+}
+
+.spec-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.spec-table td:first-child {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+  width: 40%;
+}
+
+.spec-table tr:last-child td { border-bottom: none; }
+
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.82rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+</style>
+</head>
+<body>
+
+```html
+<div class="version">2026 - Friday, June 19th</div>
+
+<div class="post-header">
+  <p class="breadcrumb">
+    <a href="../index.html">fisherarmstrong</a><span>/</span>
+    <a href="blog.html">blog</a><span>/</span>
+    three-months-later-the-3m-worktunes-i-was-supposed-to-return
+  </p>
+
+  <p class="post-eyebrow">Gear Review</p>
+
+  <h1>Three Months Later: The 3M WorkTunes I Was Supposed to Return</h1>
+
+  <div class="post-meta">
+    <span>June 19, 2026</span>
+    <span class="post-meta-dot"></span>
+    <span>Fisher Armstrong</span>
+    <span class="post-meta-dot"></span>
+    <span>~4 min read</span>
+  </div>
+
+  <div class="post-tags">
+    <span class="tag">Gear</span>
+    <span class="tag">Shop</span>
+    <span class="tag">Review</span>
+    <span class="tag">3M</span>
+    <span class="tag">WorkTunes</span>
+    <span class="tag">Hearing Protection</span>
+  </div>
+</div>
+
+<hr class="header-rule" style="max-width:680px;margin:0 auto;">
+
+<div class="post-body">
+
+  <p>When I bought a pair of 3M WorkTunes at Lowes three months ago, my plan was simple: try them out, see if they were worth it, and return them the next day if not.</p>
+
+  <p>That return never happened.</p>
+
+  <p>Three months later, I'm still using them three to four times a week, and at this point I'd call them one of the more unexpectedly successful gear purchases I've made recently.</p>
+
+  <h2>Why They Stuck Around</h2>
+
+  <p>A few things won me over fast:</p>
+
+  <table class="spec-table">
+    <tr>
+      <td>Battery Life</td>
+      <td>Excellent. Long enough that charging rarely becomes something I have to think about.</td>
+    </tr>
+
+    <tr>
+      <td>Charging</td>
+      <td>USB-C. No proprietary cables, adapters, or hunting through drawers.</td>
+    </tr>
+
+    <tr>
+      <td>Connectivity</td>
+      <td>Instant pairing with both my phone and computer.</td>
+    </tr>
+  </table>
+
+  <p>Half the battle with wireless gear is simply whether it disappears into your routine. The WorkTunes do exactly that.</p>
+
+  <div class="callout note">
+    <div class="callout-label">Unexpected Win</div>
+    <p>I bought these expecting to evaluate them for less than twenty-four hours. Instead, they've become part of my regular workflow.</p>
+  </div>
+
+  <h2>Where They Actually Get Used</h2>
+
+  <p>These have become a fixture for two very different activities: working in the shop and mowing the yard.</p>
+
+  <p>In both cases, the appeal is the same — I need real hearing protection, but I don't want total silence either.</p>
+
+  <p>That's where the noise cancellation comes in. These are, first and foremost, noise-canceling hearing protection, and they have some of the best noise cancellation on the market.</p>
+
+  <p>Power tools, mowers, compressors — all of it gets cut down significantly.</p>
+
+  <div class="callout info">
+    <div class="callout-label">The Real Purpose</div>
+    <p>It's easy to think of these as Bluetooth headphones with extra padding. They're actually hearing protection first, with audio features layered on top.</p>
+  </div>
+
+  <h2>Surprisingly Good for Audio, Too</h2>
+
+  <p>What surprised me is that they didn't sacrifice sound quality to get there.</p>
+
+  <p>The audio is genuinely solid, with better bass response than I'd expect from something built primarily as ear protection.</p>
+
+  <p>The controls are intuitive enough that I can adjust volume directly on the headphones without reaching for my phone mid-task.</p>
+
+  <p>That small convenience matters more than you'd think when your hands are dirty, you're wearing gloves, or you're halfway through mowing the yard.</p>
+
+  <h2>The Verdict</h2>
+
+  <p>I went in expecting a return.</p>
+
+  <p>Instead, I got a pair of headphones that's become a regular part of both my shop routine and my yard work — protecting my hearing without making me feel cut off from the world around me.</p>
+
+  <p>If you spend any time around loud tools, equipment, or machinery and haven't tried a pair, the 3M WorkTunes are worth the look.</p>
+
+  <div class="callout note">
+    <div class="callout-label">Final Thoughts</div>
+    <p>Not every piece of gear earns a permanent spot in the rotation - But, suprisingly, These did.</p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Fisher Armstrong <br>
+  Built &amp; Maintained by @FishTankTech
+</footer>
+
+</body>
+</html>
