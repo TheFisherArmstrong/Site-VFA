@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>N.O.V.A. Logger — Fisher Armstrong</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Building a Teensy-based telemetry stack for motorsports data logging: GPS, IMU, and CAN integration under real-time constraints.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:    #161616;
+  --paper:  #f4f1ea;
+  --muted:  #5c5c5c;
+  --muted-2:#8a8a8a;
+  --rule:   rgba(0,0,0,0.1);
+  --tech:   #2f6fb2;
+  --motor:  #c9a800;
+  --warn:   #b85c1a;
+  --dark:   #1c1c22;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px),
+    var(--paper);
+  background-size: 32px 32px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+a { text-decoration: none; color: inherit; }
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+
+.version {
+  position: fixed;
+  top: 14px; right: 14px;
+  background: var(--dark);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  z-index: 100;
+}
+
+.post-header {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 60px 28px 0;
+}
+
+.breadcrumb {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb span { margin: 0 6px; opacity: 0.4; }
+
+.post-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tech);
+  margin-bottom: 1rem;
+}
+
+.post-header h1 {
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  max-width: 580px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  color: var(--muted-2);
+  letter-spacing: 0.05em;
+  margin-bottom: 2.5rem;
+}
+
+.post-meta-dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--muted-2);
+}
+
+.post-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  padding: 3px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.06);
+  color: var(--muted);
+}
+
+.header-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.post-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 28px 100px;
+}
+
+.post-body p {
+  font-size: 1rem;
+  line-height: 1.78;
+  margin-bottom: 1.4rem;
+}
+
+.post-body h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 2.8rem 0 0.9rem;
+}
+
+.post-body h3 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 2rem 0 0.7rem;
+}
+
+.callout {
+  border-left: 3px solid;
+  padding: 14px 18px;
+  margin: 1.8rem 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.callout p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.callout.info  { border-color: var(--tech); background: rgba(47,111,178,0.07); }
+.callout.note  { border-color: var(--motor); background: rgba(201,168,0,0.07); }
+.callout.warn  { border-color: var(--warn); background: rgba(184,92,26,0.07); }
+
+.callout-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.82rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+</style>
+</head>
+
+<body>
+
+<div class="version">2025 - Dec 5</div>
+
+<div class="post-header">
+
+  <p class="breadcrumb">
+    <a href="../index.html">fisherarmstrong</a>
+    <span>/</span>
+    <a href="blog.html">blog</a>
+    <span>/</span>
+    nova-logger
+  </p>
+
+  <p class="post-eyebrow">Maker Systems</p>
+
+  <h1>N.O.V.A. Logger: Building a Teensy-Based Telemetry Stack From Scratch</h1>
+
+  <div class="post-meta">
+    <span>Dec 5, 2025</span>
+    <span class="post-meta-dot"></span>
+    <span>Fisher Armstrong</span>
+    <span class="post-meta-dot"></span>
+    <span>~14 min read</span>
+  </div>
+
+  <div class="post-tags">
+    <span class="tag">Telemetry</span>
+    <span class="tag">Embedded Systems</span>
+    <span class="tag">GPS</span>
+    <span class="tag">IMU</span>
+    <span class="tag">CAN Bus</span>
+    <span class="tag">Motorsports Data</span>
+  </div>
+
+</div>
+
+<hr class="header-rule" style="max-width:680px;margin:0 auto;">
+
+<div class="post-body">
+
+  <p>
+    The Teensy 4.1 is fast enough to log GPS, IMU, and CAN data simultaneously without choking.
+    That sounds like a simple statement until you actually try to build a system around it that doesn't fall apart under real-time load.
+    N.O.V.A. Logger started as a hardware integration problem and turned into a lesson in how quickly “fast enough” stops meaning anything if your data pipeline isn't disciplined.
+  </p>
+
+  <p>
+    This is the architecture behind the system — and what building it exposed about real-time constraints in environments that don't forgive timing mistakes.
+  </p>
+
+  <h2>System Overview</h2>
+
+  <p>
+    At a high level, the stack is straightforward: a central microcontroller coordinating three primary data sources — GPS for position and velocity, an IMU for acceleration and rotational data, and CAN for vehicle-state telemetry.
+    The complexity isn't in what it does. It's in keeping all three synchronized without dropping samples or blocking the loop.
+  </p>
+
+  <h3>Core Hardware Stack</h3>
+
+  <div class="callout info">
+    <div class="callout-label">Primary Compute</div>
+    <p>
+      Teensy 4.1 — Cortex-M7 @ 600MHz, running bare-metal loop with structured interrupt handling for time-critical sensor reads.
+    </p>
+  </div>
+
+  <div class="callout note">
+    <div class="callout-label">Sensor Inputs</div>
+    <p>
+      u-blox M9N GPS module for positional data, LSM6DSO32 IMU for acceleration/gyro tracking, and MCP2515 CAN controller for vehicle network data acquisition.
+    </p>
+  </div>
+
+  <h2>Real-Time Problem: Everything Wants the CPU at Once</h2>
+
+  <p>
+    GPS wants UART time. IMU wants consistent polling. CAN wants deterministic interrupt servicing. On paper, the Teensy can handle all of it. In practice, the moment you let one subsystem block the loop, everything else starts degrading.
+  </p>
+
+  <p>
+    The first version of N.O.V.A. failed exactly this way: CAN polling introduced latency spikes that corrupted IMU sampling consistency. The result wasn't a crash — it was worse. It produced data that looked valid until you actually tried to align it.
+  </p>
+
+  <h2>Architecture Shift: Interrupt First, Poll Second</h2>
+
+  <p>
+    The fix wasn't more power. It was restructuring priorities.
+    CAN moved to interrupt-driven reads. IMU sampling was decoupled into a fixed-timestep loop. GPS remained buffered through UART DMA-style reads where possible.
+  </p>
+
+  <p>
+    Once the system stopped pretending everything was equally urgent, the timing stabilized.
+  </p>
+
+  <div class="callout warn">
+    <div class="callout-label">Failure Mode</div>
+    <p>
+      If IMU and CAN share synchronous polling in the same loop, you will eventually get phase drift between motion and vehicle state data.
+      It won't fail immediately. It fails silently.
+    </p>
+  </div>
+
+  <h2>What Real-Time Actually Means Here</h2>
+
+  <p>
+    Real-time in embedded logging isn't about speed. It's about predictability.
+    A 1ms delay that always happens is acceptable. A 200µs jitter spike that happens randomly every few seconds destroys data integrity over long sessions.
+  </p>
+
+  <p>
+    That distinction is the entire system design constraint.
+  </p>
+
+  <h2>Data Pipeline Structure</h2>
+
+  <p>
+    Data is staged through a three-layer buffer model:
+  </p>
+
+  <p>
+    Sensor layer → sampling buffers → aggregation frame → SD write queue.
+  </p>
+
+  <p>
+    The SD write is intentionally isolated from acquisition. If logging ever blocks acquisition, the system is already compromised.
+  </p>
+
+  <h2>What This Actually Taught Me</h2>
+
+  <p>
+    The interesting part wasn't that the Teensy could handle the workload. It obviously can.
+    The interesting part was how quickly system design problems masquerade as hardware limitations when timing integrity breaks down.
+  </p>
+
+  <p>
+    Most embedded failures in systems like this aren't CPU-bound. They're architecture-bound.
+  </p>
+
+  <h2>Where This Goes Next</h2>
+
+  <p>
+    The next iteration of N.O.V.A. will likely push toward better timestamp discipline between subsystems and tighter synchronization between CAN and IMU streams.
+    GPS remains the least reliable reference source in the chain, which makes it the least trusted anchor for alignment.
+  </p>
+
+  <p>
+    For now, the system works. More importantly, it works consistently — which is the only metric that matters at speed.
+  </p>
+
+</div>
+
+<footer>
+  © 2025 Fisher Armstrong <br>
+  Built & Maintained by @FishTankTech
+</footer>
+
+</body>
+</html>
