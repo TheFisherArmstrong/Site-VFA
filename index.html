@@ -14,13 +14,14 @@
 :root {
   --ink: #161616;
   --paper: #f4f1ea;
-  --muted: #5c5c5c;
+  --muted: #5c5c5c; 
  
   --ahs: #d9642f;
   --motor: #c9a800;
   --photo: #e98d8d;
   --tech: #2f6fb2;
   --bob: #6d6c70;
+  --personal: #5a2d9a;
  
   --dark: #1c1c22;
   --dark-2: #26262e;
@@ -43,7 +44,7 @@ h1, h2 { margin: 0; }
  
 a { text-decoration: none; color: inherit; }
  
-/* VERSION TAG */
+/* VERSION // EVENT TAG */
 .version {
   position: fixed;
   top: 14px;
@@ -56,6 +57,88 @@ a { text-decoration: none; color: inherit; }
   border-radius: 4px;
   letter-spacing: 0.05em;
 }
+
+/* WHERE AM I TAG (event-specific, swap in/out with .version) */
+.whereami {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #1c1c22, #2f2f3a);
+  color: #fff;
+  padding: 9px 16px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--personal);
+  box-shadow: 0 0 0 1px rgba(217,100,47,0.25), 0 4px 14px rgba(0,0,0,0.25);
+  text-decoration: none;
+  z-index: 50;
+  animation: whereami-pulse 2.4s ease-in-out infinite;
+}
+
+.whereami .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--personal);
+  flex-shrink: 0;
+}
+
+.whereami:hover {
+  border-color: #fff;
+  transform: translateY(-1px);
+}
+
+@keyframes whereami-pulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(217,100,47,0.25), 0 4px 14px rgba(0,0,0,0.25); }
+  50% { box-shadow: 0 0 0 4px rgba(217,100,47,0.18), 0 4px 14px rgba(0,0,0,0.25); }
+}
+
+/* WHERE AM I TAG (swap in/out with .version) */
+
+.whereami {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #1c1c22, #2f2f3a);
+  color: #fff;
+  padding: 9px 16px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--personal);
+  box-shadow: 0 0 0 1px rgba(217,100,47,0.25), 0 4px 14px rgba(0,0,0,0.25);
+  text-decoration: none;
+  z-index: 50;
+  animation: whereami-pulse 2.4s ease-in-out infinite;
+}
+
+.whereami .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--personal);
+  flex-shrink: 0;
+}
+
+.whereami:hover {
+  border-color: #fff;
+  transform: translateY(-1px);
+}
+
+@keyframes whereami-pulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(217,100,47,0.25), 0 4px 14px rgba(0,0,0,0.25); }
+  50% { box-shadow: 0 0 0 4px rgba(217,100,47,0.18), 0 4px 14px rgba(0,0,0,0.25); }
+}
+
  
 /* HERO */
 .hero {
@@ -378,6 +461,55 @@ aside h2 {
   opacity: 0.7;
 }
 
+/* FIND ME ON BAR */
+.findme-bar {
+  border-top: 2px solid rgba(0,0,0,0.06);
+  padding: 40px 28px 44px;
+  text-align: center;
+}
+
+.findme-bar-inner {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.findme-bar h2 {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 1.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #26262e;
+  margin-bottom: 14px;
+}
+
+.findme-bar p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+.findme-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.03);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.findme-link:hover {
+  border-color: #5c5c5c;
+  background: rgba(92,92,92,0.08);
+  transform: translateY(-3px);
+}
+
 /* FOOTER */
 footer {
   background: var(--dark);
@@ -390,7 +522,15 @@ footer {
 </head>
 <body>
  
-<div class="version">build V17.8.3</div>
+<!-- VERSION TAG (default state — comment this out when an event tag is live) -->
+<!-- <div class="version">build V17.9.1</div> -->
+
+<!-- WHERE AM I TAG (event state — uncomment and edit text/href below, comment .version above when live) -->
+
+<a class="whereami" href="https://appalachianhillclimb.com/#/hills/flag-rock" target="_blank" rel="noopener">
+  <span class="dot"></span>
+  In Norton w/ AHS this weekend — say hi →
+</a>
  
 <header class="hero">
   <h1>Fisher Armstrong</h1>
@@ -567,6 +707,17 @@ footer {
       </a>
 
     </div>
+  </div>
+</section>
+
+<!-- FIND ME ON BAR -->
+<section class="findme-bar">
+  <div class="findme-bar-inner">
+    <h2>Find Me On</h2>
+    <p>@thefisherarmstrong — stalking optional, but encouraged (: </p>
+    <a class="findme-link" href="findme.html">
+      See The Full Digital Footprint →
+    </a>
   </div>
 </section>
  
